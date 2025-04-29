@@ -31,7 +31,7 @@ le carnet (**pad**) pour communiquer : <https://mypads2.framapad.org/mypads/?/my
 
 ### RESSOURCES
 
-Vous pouvez trouver une présentation plus longue (en anglais) de la langue R ici: [https://humanitiesdata.org/text/](https://humanitiesdata.org/text/). Utiliser le nom d'utilisateur **hdir** et mot de passe **hdir**. 
+Vous pouvez trouver une présentation plus longue (en anglais) de la langue R ici: [https://humanitiesdata.org/text/](https://humanitiesdata.org/text/). Utilisez le nom d'utilisateur **hdir** et mot de passe **hdir**. 
 
 ### PRE-PROGRAMME 
 29 avril 2025  10h-17h 

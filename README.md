@@ -138,6 +138,8 @@ Construire un nouveau modèle d'annotation en dépendance à partir d'un corpus 
 16h30  R pour la recherche reproductible
 
 17h00  Continuer à se former en R
+
+
 prolongements
 bilan
 -> plan pour le 30 avril

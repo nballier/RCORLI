@@ -1,0 +1,110 @@
+
+
+# UD
+<https://universaldependencies.org/>
+
+
+
+<https://bnosac.github.io/udpipe/en/>
+
+https://cran.r-project.org/web/packages/udpipe/index.html
+
+
+# le français
+# Install udpipe if you haven't already
+install.packages("udpipe")
+
+# Load the package
+library(udpipe)
+
+# Download a French language model (only needs to be done once)
+ud_model <- udpipe_download_model(language = "french")
+# Load the model
+ud_model <- udpipe_load_model(ud_model$file_model)
+
+# Sentence to annotate
+sentence <- "Le chat noir dort sur le canapé."
+
+# Annotate the sentence
+annotation <- udpipe_annotate(ud_model, x = sentence)
+annotation_df <- as.data.frame(annotation)
+
+# View the annotation
+print(annotation_df)
+
+
+# UDpipe R package-------
+#Adapted from http://www.bnosac.be/index.php/blog/102-udpipe-r-package-updated
+
+# do dependency parsing for a sentence.
+install.packages('udpipe') # once
+library(udpipe)
+x <- udpipe("The package provides a dependency parsers built on data from universaldependencies.org", "english")
+View(x)
+library(ggplot2)
+library(igraph)
+
+library(textplot)
+plt <- textplot_dependencyparser(x, size = 3, title = "udpipe R package - dependency parsing (default model)")
+plt
+## do dependency parsing for Noun that-clause.
+x4 <- udpipe("the fact that baseball rightfully is the national pastime.", "english-ewt")
+library(ggraph)
+library(ggplot2)
+library(igraph)
+library(textplot)
+plt4 <- textplot_dependencyparser(x4, size = 4, title = "udpipe dependency parsing")
+plt4
+```
+
+# Install and load required packages
+install.packages("udpipe")
+library(udpipe)
+
+# Download and load the French model (if not already downloaded)
+ud_model <- udpipe_download_model(language = "french")
+ud_model <- udpipe_load_model(ud_model$file_model)
+
+# Annotate the sentence
+sentence <- "Le chat noir dort sur le canapé."
+annotation <- udpipe_annotate(ud_model, x = sentence)
+annotation_df <- as.data.frame(annotation)
+
+# Plot the dependency tree
+textplot_dependencyparser(annotation_df)
+
+
+```{r}
+library(udpipe)
+x2 <- udpipe("Both , of course , were remarkable feats and further embossed the fact that baseball rightfully is the national pastime.", "english")
+View(x2)
+library(ggraph)
+library(ggplot2)
+library(igraph)
+library(textplot)
+plt2 <- textplot_dependencyparser(x2, size = 3, title = "udpipe dependency parsing (default model) ")
+plt2
+```
+
+
+#Load all texts of the UNHDR from the {readtext} package
+install.packages("readtext")
+require(readtext)
+## Loading required package: readtext
+# get the data directory from readtext
+DATA_DIR <- system.file("extdata/", package = "readtext")
+# read in all files from a folder
+test <- readtext(paste0(DATA_DIR, "/txt/UDHR/*"))
+
+corpusUN <- udpipe(test$text, "english") 
+
+
+
+udmodel <- udpipe_download_model(language = "english-ewt")
+udmodel <- udpipe_load_model(file = udmodel$file_model)
+x <- udpipe_annotate(udmodel,
+                         x = "The economy is weak but the outlook is bright")
+
+partut.model <-  udpipe_download_model(language = "english-partut")
+corpusBrown.eng.partut <- udpipe_annotate(partut.model,x = test$text)    
+

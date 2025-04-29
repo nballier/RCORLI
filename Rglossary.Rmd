@@ -1,0 +1,342 @@
+---
+title: "A basic glossary for R with LLMs"
+author: "NLB"
+date: "2025-04-01"
+output: html_document
+---
+
+Below is a structured glossary of essential concepts and terms needed when teaching/using R as a programming language. These concepts cover foundational elements, syntax, data structures, and advanced functionalities.
+
+# Basic Concepts ---
+
+    Object: Everything in R is treated as an object, such as data sets, variables, functions, or plots. Objects have attributes like class and mode that determine their behavior
+    
+
+```{r}
+x <- 42  # Creates an object 'x' with the value 42
+class(x)  # Output: "numeric"
+```
+
+
+Environment
+An environment is a collection of objects (variables, functions) stored in memory. The global environment (.GlobalEnv) is the default workspace in R.
+
+
+
+```{r}
+ls()  # Lists all objects in the current environment
+```
+
+
+Variable
+A variable is a named storage location for values or objects. Variables in R are dynamically typed, meaning their type depends on the assigned value. 
+ 
+
+```{r}
+name <- "John"
+age <- 30
+print(name)  # Output: "John"
+print(age)   # Output: 30
+```
+
+Assignment Operator
+The <- symbol is the primary operator used to assign values to variables in (e.g., x <- 5)
+
+    
+```{r}
+    x <- 5  # Assigns value 5 to x
+    y = 10  # Alternative assignment syntax
+    z <<- 15  # Assigns value globally (across environments)
+```
+
+
+#  Data Structures ------
+
+    Vector
+    A vector is the most basic data structure in R, holding elements of the same type (e.g., numeric, character).
+
+    Vector: The most basic data structure in R, holding elements of the same type. Created using c() (e.g., c(1, 2, 3))
+
+
+
+Matrix: A two-dimensional array where all elements are of the same type. Created using matrix() or functions like cbind() and rbind()
+
+```{r}
+v <- c(1, 2, 3)  # Creates a numeric vector
+sum(v)  # Output: 6 (sum of vector elements)
+```
+
+Matrix
+A matrix is a two-dimensional array where all elements are of the same type.
+
+```{r}
+m <- matrix(1:9, nrow = 3, ncol = 3)
+print(m)
+```
+
+Output:
+
+```{r}
+#    [,1] [,2] [,3]
+#[1,]    1    4    7
+#[2,]    2    5    8
+#[3,]    3    6    9
+```
+
+Data Frame
+A data frame is a tabular data structure where rows represent observations and columns represent variables (which can be of different types). Created using data.frame()
+
+
+```{r}
+df <- data.frame(Name = c("Alice", "Bob"), Age = c(25, 30))
+print(df)
+```
+Output:
+    Name Age
+  1 Alice 25
+  2 Bob    30
+
+List
+A list is a flexible data structure that can hold elements of different types (e.g., vectors, data frames) and of different dimensions/size. subsetting with []
+
+
+```{r}
+lst <- list(name = "Alice", age = 25, scores = c(90, 85))
+print(lst)
+```
+
+Tibble
+A tibble is a modern version of a data frame with enhanced usability features from the tidyverse package.
+
+    
+```{r}
+library(tibble)
+
+tb <- tibble(Name = c("Alice", "Bob"), Age = c(25, 30))
+    print(tb)
+```
+
+# show its compatibility with tibble only structures
+
+#  Functions and Operators ---
+
+Pipe Operator (%>%): Used to chain functions together for streamlined data manipulation (common in tidyverse)
+
+Logical Operators: Include <, >, ==, !=, &, |, etc., for conditional statements
+
+Arithmetic Operators: Basic mathematical operations like +, -, *, /, etc.
+
+
+
+    Function
+    A function is a reusable block of code that performs specific tasks. Functions can take arguments and return values.
+
+```{r}
+add <- function(a, b) {
+    return(a + b)
+}
+
+add(3, 5)  # Output: 8
+```
+
+
+# Packages and Libraries ---
+
+    Package: A collection of R functions, data, and documentation bundled together to perform specific tasks (e.g., ggplot2 for plotting)
+
+
+CRAN (Comprehensive R Archive Network): The primary repository for R packages
+
+    .
+
+Data Manipulation and Visualization
+
+    ggplot2: A popular package for creating complex visualizations based on the grammar of graphics
+
+.
+
+tidyverse: A collection of packages designed for consistent data manipulation and visualization workflows
+
+.
+
+dplyr: Part of tidyverse; provides functions like filter(), select(), and mutate() for efficient data manipulation
+
+    .
+
+# Programming Constructs
+
+    Script: Code written in .R files that can be saved and reused
+
+.
+
+Loop: Constructs like for, while, or repeat used for iterative operations
+
+.
+
+Conditionals: Statements like if and else used for decision-making
+
+    .
+
+Statistical Modeling
+
+    Linear Regression (lm): Used for modeling relationships between variables.
+
+    Logistic Regression (glm): Applied to classification problems where the outcome is binary
+
+.
+
+Machine Learning Models: Algorithms such as decision trees, random forests, and gradient boosting implemented via packages like caret or h2o
+
+    .
+
+# Advanced Concepts ---
+
+    Object-Oriented Programming (OOP):
+
+        S3 System: Informal system supporting single dispatch.
+
+        S4 System: Formal system supporting multiple dispatch and inheritance
+
+    .
+
+Lazy Evaluation: Function arguments are evaluated only when needed during function execution
+
+    .
+
+Reproducible Research
+
+    Emphasizes documenting code and results to enable replication by others. Tools like R Markdown facilitate this process
+
+    Function
+
+```{r}
+add <- function(a, b) {
+  return(a + b)
+}
+
+add(3, 5)  # Output: 8
+```
+
+Functions encapsulate reusable code.
+
+Pipe Operator (%>%)
+
+```{r}
+library(dplyr)
+
+mtcars %>%
+  filter(mpg > 20) %>%
+  summarise(mean_mpg = mean(mpg))
+```
+Pipes streamline data manipulation workflows.
+
+Logical Operators
+
+```{r}
+x <- TRUE; y <- FALSE
+x & y      # Output: FALSE (AND operator)
+x | y      # Output: TRUE (OR operator)
+!x         # Output: FALSE (NOT operator)
+```
+Arithmetic Operators
+
+    
+```{r}
+    a <- 10; b <- 5
+    a + b      # Output: 15 (Addition)
+    a - b      # Output: 5 (Subtraction)
+    a * b      # Output: 50 (Multiplication)
+    a / b      # Output: 2 (Division)
+```
+Packages and Libraries
+
+    Installing and Using Packages
+
+
+```{r}
+#install.packages("ggplot2")
+library(ggplot2)
+ggplot(data = mtcars, aes(x = mpg)) + geom_histogram()
+```
+    Packages extend R’s functionality.
+
+Data Manipulation and Visualization
+
+    Basic Data Manipulation with dplyr
+
+```{r}
+library(dplyr)
+
+df <- data.frame(Name = c("Alice", "Bob"), Age = c(25, 30))
+
+df %>%
+  filter(Age > 25) %>%
+  mutate(NewAge = Age + 5)
+```
+
+Visualization with ggplot2
+
+```{r}
+    library(ggplot2)
+
+    ggplot(data = mtcars, aes(x = mpg, y = hp)) +
+      geom_point() +
+      labs(title = "Scatter Plot of MPG vs HP")
+```
+
+# Programming Constructs --
+
+    Script Example
+
+```{r}
+# Save this code in file script.R and run it using source("script.R")
+
+```{r}
+print("Hello World")
+```
+
+
+
+library(Cairo)
+
+*Loop Example
+```{r}
+for (i in seq(1,5)) {
+  print(i^2) 
+}
+```
+
+
+* Conditional Statements
+```{r}
+    x <- -5
+    if (x > 0) {
+      print("Positive")
+    } else {
+      print("Negative")
+    }
+```
+
+
+# Statistical Modeling
+
+* Linear Regression Example (lm)
+```{r}
+model <- lm(mpg ~ hp, data = mtcars)
+summary(model)
+```
+
+# Advanced Concepts --
+
+*Object-Oriented Programming (OOP) Example (S3)
+```{r}
+person <- list(name="Alice", age=25)
+class(person)
+class(person) <- "person"
+class(person)
+```
+
+
+
+
+

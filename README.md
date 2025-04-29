@@ -7,7 +7,7 @@ Bâtiment Olympe de Gouges
 Place Paul Ricoeur 75013 Paris
 
  
-# Installer R puis RStudio 
+### Installer R puis RStudio 
 Installer d'abord R (la dernière version en date, R.4.5.0)
 PC  : https://cran.r-project.org/bin/windows/base/
 typiquement, https://cran.r-project.org/bin/windows/base/R-4.5.0-win.exe
@@ -27,13 +27,13 @@ ou
 https://quanti.hypotheses.org/1813
 
 
-# le carnet (**pad**) pour communiquer : <https://mypads2.framapad.org/mypads/?/mypads/group/corli-xq5r7i9yh/pad/view/r-faq-b02y3i9zm>
+le carnet (**pad**) pour communiquer : <https://mypads2.framapad.org/mypads/?/mypads/group/corli-xq5r7i9yh/pad/view/r-faq-b02y3i9zm>
 
-# RESSOURCES
+### RESSOURCES
 
 Vous pouvez trouver une présentation plus longue (en anglais) de la langue R ici: [https://humanitiesdata.org/text/](https://humanitiesdata.org/text/). Utiliser le nom d'utilisateur **hdir** et mot de passe **hdir**. Il y a 
 
-# PRE-PROGRAMME 
+### PRE-PROGRAMME 
 29 avril 2025  10h-17h 
 Nicolas Ballier (Université Paris Cité) : R pour débutants : démarrer avec R à l’ère des LLM
  
@@ -60,7 +60,7 @@ Taylor Arnold (University of Redmond)  : R , fonctions avancées
 
 
 
-# PROGRAMME PREVISIONNEL
+### PROGRAMME PREVISIONNEL
 
 10h 00
 

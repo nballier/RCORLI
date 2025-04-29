@@ -1,0 +1,363 @@
+---
+title: "Introduction à R"
+author: "d'après Paula Lissón"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  beamer_presentation:
+    theme: "Madrid"
+    colortheme: "seahorse"
+    fonttheme: "structurebold"
+---
+
+knitr::opts_chunk$set(
+echo = TRUE,
+warning = FALSE,
+message = FALSE
+)
+Introduction à R (partie I)
+========================================================
+auteur: Paula Lissón
+date: Novembre 2021
+
+<small>
+Universität Potsdam
+Department of Linguistics
+</small>
+
+Contact : paula.lisson@uni-potsdam.de
+
+
+
+Nommer des objets
+========================================================
+
+- Utilisez des noms significatifs qui décrivent le contenu de l'objet
+- N'utilisez pas de noms extrêmement longs (très peu pratique)
+- Les espaces sont interdits. Par exemple, utilisez "means_group_3" au lieu de "Means Group 3"
+- Les objets ne peuvent pas commencer par un chiffre ou des symboles (par exemple, ces noms : !myobject, 4_test sont **FAUX**)
+
+========================================================
+
+- Les majuscules comptent, cf.:
+
+```{r}
+MY_object <- 45
+MY_object
+```
+
+Mais si nous tapons "my_object" au lieu de "MY_object", nous obtenons une erreur qui ressemble à ceci :
+
+```{r}
+#Error in eval(expr, envir, enclos) : object 'my_object' not found
+```
+
+- N'hésitez pas à vérifier votre environnement (panneau supérieur droit) pour voir les objets que vous avez créés
+... Fonctions
+========================================================
+incremental: true
+Les fonctions sont des morceaux de code qui font quelque chose de spécifique. Dans R (de base), il existe de nombreuses fonctions intégrées, ce qui signifie que vous n'avez pas à les créer ; vous pouvez simplement les utiliser. Certaines fonctions utiles sont :
+
+```{r}
+rm(myobject) # efface l'objet, à manier avec précaution
+
+sqrt(5) # racine carrée
+rep(1,7) # remarquez les deux arguments ici (car l'ordre est important !) ; cela signifie "répéter sept fois le chiffre un"
+
+```
+
+========================================================
+incremental: true
+Comme nous l'avons vu, la fonction c() concatène ses arguments, par exemple :
+
+```{r}
+fruits <- c("orange","banana","apple")
+fruits
+values_group1 <- c(23,32,45,56,33,43)
+```
+
+========================================================
+incremental: true
+Nous pouvons calculer la moyenne et l'écart type avec les fonctions **mean()** et **sd()** :
+
+```{r}
+mean(values_group1)
+sd(values_group1)
+```
+
+... ========================================================
+incremental: true
+Vous pouvez imbriquer des fonctions les unes dans les autres, alors par exemple, que pensez-vous que le code suivant fera ?
+
+```{r}
+round(mean(values_group1))
+```
+
+```{r}
+round(mean(values_group1),1)
+```
+
+```{r}
+round(mean(values_group1),2)
+```
+
+========================================================
+Valeurs min et max :
+
+```{r}
+min(values_group1)
+max(values_group1)
+```
+
+========================================================
+incremental: true
+
+La fonction summary() calcule les statistiques descriptives de base :
+
+```{r}
+summary(values_group1)
+```
+
+========================================================
+incremental: true
+
+Calculer le logarithme et l'exponentielle :
+
+```{r}
+(logvalues<- log(values_group1))
+exp(logvalues)
+```
+
+Aide
+========================================================
+R a une fonction d'aide, qui consiste à taper un **?** avant la fonction sur laquelle vous voulez en savoir plus. Vous pouvez également le faire avec la fonction **help()**.
+... Tapez le code suivant et observez ce qui se passe dans le panneau inférieur à droite :
+
+```{r}
+?rnorm #équivalent à help(rnorm)
+```
+
+Vous devriez maintenant obtenir la description de la fonction, son utilisation, ses arguments, quelques détails, des exemples et des références. Si vous n'obtenez pas ce que vous vouliez, essayez **??** (c'est-à-dire > ??rnorm).
+
+Packages
+========================================================
+
+- Les packages sont essentiellement des collections de fonctions qui ne sont pas implémentées dans R de base
+- Une fois que vous avez téléchargé et chargé le package, vous pouvez utiliser toutes les fonctions du package.
+- Tous les packages "officiels" sont stockés dans **CRAN** (Comprehensive R Archive Network), et il y en a des milliers. Jetez un coup d'œil à : https://cran.r-project.org/web/views/NaturalLanguageProcessing.html
+- R est open source et gratuit : n'importe qui peut contribuer avec son propre code/package. C'est ce qui rend R si **génial**.
+
+Téléchargement et chargement de packages
+========================================================... - Vous n'avez besoin de télécharger un package qu'une seule fois
+
+- Mais chaque fois que vous ouvrez RStudio, vous devez le charger, sinon il ne fonctionnera pas
+
+```{r, eval=FALSE, echo=TRUE}
+install.packages("stats") # SEULEMENT UNE FOIS
+library(stats) # chaque fois que vous ouvrez une session
+```
+
+Types de données et objets R
+========================================================
+Nous allons seulement nous concentrer sur les vecteurs atomiques et les data frames, mais
+il sera utile de reconnaître d'autres types d'objets (il
+y en a plus que ceux présentés ici) :
+
+1. Les objets qui ne peuvent stocker qu'un seul type de données (vecteurs atomiques)
+peuvent être de type :
+
+- **Numérique**
+- **Caractère / chaînes de caractères (texte)**
+- **Logique (Vrai/Faux)**
+- **Facteurs**
+
+========================================================
+2. Ceux-ci stockent également un seul type de données, mais peuvent avoir plus d'une dimension :
+
+- **Matrices (deux dimensions)**
+- **Tableaux (2 dimensions ou plus)** <- pas besoin de s'en soucier pour l'instant
+... 3. Ceux-ci peuvent stocker plus d'un type de données (c'est-à-dire des nombres en tant que numériques et des chaînes de caractères en tant que caractères) :
+- **Listes** <- pas besoin de s'en soucier pour l'instant
+- **Data frames !!!!**
+
+Fonctions utiles pour tout type de données et tout objet :
+========================================================
+
+```{r, eval=FALSE, echo=TRUE}
+class(nameoftheobject)
+length(nameoftheobject)
+```
+
+```{r}
+string <- "hello"
+class(string)
+length(string)
+```
+
+Types de données et objets R : partie I
+========================================================
+Aujourd'hui, nous allons nous concentrer sur :
+
+1. Les objets qui ne peuvent stocker qu'un seul type de données (vecteurs atomiques)
+peuvent être de type :
+
+- **Numérique**
+- **Caractère / chaînes de caractères (texte)**
+- ~~Logique (Vrai/Faux)~~
+- ~~Facteurs~~
+
+Vecteurs numériques
+========================================================
+incremental: true
+
+Exemples
+
+```{r}
+myvector1 <- 1:10
+myvector1
+myvector2 <- c(1, 2, 3)
+myvector2
+```
+
+Le **c** est pour "concaténer".
+
+========================================================
+incremental: true
+
+```{r}
+myvector3 <- seq(from = 1, to = 10, by = 0.5)
+myvector3
+(myvector4 <- seq(1,10,0.5)) # même chose que précédemment mais plus court
+```
+
+* Remarquez l'utilisation de parenthèses au début et à la fin de myvector4 : si nous incluons tout entre parenthèses, R affichera automatiquement la sortie même si elle se trouve dans un objet
+
+Vecteurs de caractères
+========================================================
+incremental: true
+
+Exemples
+
+```{r}
+strings <- c("this","is","my","text")
+class(strings)
+length(strings)
+nchar(strings)
+```
+
+========================================================
+incremental: true
+
+Notez que nous pouvons explicitement dire à R de changer le type de données :
+
+```{r}
+myvector <- 1:10
+class(myvector)
+as.character(myvector)
+as.numeric("1") # rappelez-vous que tout ce qui est entre "" est normalement un caractère
+```
+
+Sous-ensemble et autres opérations avec des vecteurs
+========================================================
+incremental: true
+... * Pour obtenir un élément particulier (ou des séquences d'éléments) dans un vecteur, nous utilisons des crochets []
+
+```{r}
+myvector <- 10:1
+myvector[3] # nous demandons le troisième élément du vecteur, c'est-à-dire 8
+myvector[3:6]
+```
+
+========================================================
+incremental: true
+
+* Devinez ce que le code suivant affichera :
+
+```{r}
+myvector <- 10:1
+myvector[c(1,3,5)]
+```
+
+* et ceci ?
+
+```{r}
+x <- 1:20
+x
+```
+
+========================================================
+incremental: true
+Qu'affichera le code suivant ?
+
+```{r}
+x[-(2:4)]
+```
+
+Et celui-ci ? (le **c** est pour "concaténer")
+
+```{r}
+x[c(1, 5)]
+```
+
+========================================================
+incremental: true
+Qu'en est-il de celui-ci ?
+
+```{r}
+rep(1:4, times=3)
+```
+
+Et celui-ci ?
+
+```{r}
+rep(1:2, each=3)
+```
+
+========================================================
+incremental: true
+
+* Lorsque nous multiplions/divisons/additionnons/soustrayons/élevons un vecteur par un nombre, chaque élément du vecteur subit l'opération :
+
+```{r}
+myvector <- 1:10
+(result <- myvector *2)
+```
+
+* lorsque nous multiplions/divisons/additionnons/soustrayons/élevons un vecteur par un autre vecteur, observez ce qui se passe :
+
+```{r}
+x <- c(1,3)
+y <- c(2,4)
+x*y
+```
+
+Note
+========================================================
+incremental: true
+
+Plusieurs chemins mènent à Rome 
+
+Souvent, il existe de nombreuses façons d'obtenir le même résultat avec R. C'est-à-dire qu'il existe de nombreuses fonctions alternatives possibles pour atteindre le même objectif. Les fonctions que je vous montre ici sont très basiques et ne sont en aucun cas la seule façon d'obtenir les résultats. Si vous trouvez d'autres possibilités en consultant des forums en ligne ou dans des livres de référence, c'est très bien. Je ne voudrais pas que vous soyez submergés, donc je vous montre juste une façon de faire les choses, mais si vous voulez apprendre différentes manières, c'est parfait.  
+
+Ressources en ligne
+========================================================
+incremental: true
+R a une communauté importante et généralement assez bienveillante. Certaines ressources en ligne utiles sont :
+*en français:
+Introduction à l’analyse d’enquêtes avec R et RStudio 
+<https://larmarange.github.io/analyse-R/>
+- Cornillon et al. (2018) R pour la statistique et la science des données, Presses universitaires de Rennes. Lignes de code disponibls sur GitHub : <https://r-stat-sc-donnees.github.io/>
+* Stackoverflow (vous trouverez la plupart des réponses sur ce site lorsque vous recherchez des erreurs sur Google)
+* RGraph gallery : <https://r-graph-gallery.com/>
+* Twitter ! (vérifiez \#rstats \#rladies \#rstudio)
+* Rencontres R en général, et Rladies
+* Learning Statistics with R : un tutoriel en anglais pour les étudiants en psychologie et autres débutants, par Danielle Navarro : <http://www.fon.hum.uva.nl/paul/lot2015/Navarro2014.pdf>
+* la version auteur du livre de 
+R. H. Baayen (2008) Analyzing linguistic data: A practical introduction to statistics using R, CUP [ne pas hésiter à lire le chapitre 3, davantage mathématique, en dernier]
+<https://quantling.org/~hbaayen/publications/baayenCUPstats.pdf>
+- le site d'accompagnement du manuel de Natalia Levshina <https://benjamins.com/sites/z.195/content/package.html>
+(et son manuel How to do Linguistics with R, Benjamins,2015 ) 
+- le carnet Hypothèse  de Guillaume Desagulier https://corpling.hypotheses.org/2252 
+(et son manuel de 2017 chez Springer Corpus Linguistics and Statistics with R
+http://www.springer.com/gp/book/9783319645704)
+
+

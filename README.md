@@ -7,8 +7,15 @@ Bâtiment Olympe de Gouges
 Place Paul Ricoeur 75013 Paris
 
  
-Installer R puis RStudio 
- 
+# Installer R puis RStudio 
+
+
+# le carnet (**pad**) pour communiquer : <https://mypads2.framapad.org/mypads/?/mypads/group/corli-xq5r7i9yh/pad/view/r-faq-b02y3i9zm>
+
+
+
+
+# PRE-PROGRAMME 
 29 avril 2025  10h-17h 
 Nicolas Ballier (Université Paris Cité) : R pour débutants : démarrer avec R à l’ère des LLM
  

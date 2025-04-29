@@ -1,0 +1,174 @@
+---
+title: "Maîtriser R : Des Bases aux Applications Avancées"
+author: "Votre Nom"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  beamer_presentation:
+    theme: "Madrid"
+    colortheme: "seahorse"
+    fonttheme: "structurebold"
+---
+
+knitr::opts_chunk$set(
+echo = TRUE,
+warning = FALSE,
+message = FALSE
+)
+
+text
+
+## Introduction à la programmation R
+
+### Syntaxe de base (R de base)
+**Opérations fondamentales** :
+
+Opérations arithmétiques
+
+7 + 4 # Addition
+sqrt(25) # Racine carrée
+log10(100) # Logarithme
+Variables
+
+prix_citron <- 2.5
+panier_fruits <- prix_citron * 3
+
+text
+
+**Structures de données** :
+
+Vecteurs
+
+vecteur_numerique <- c(1.2, 3.4, 5.6)
+vecteur_texte <- c("pomme", "banane", "orange")
+Data frames
+
+df_base <- data.frame(
+fruit = vecteur_texte,
+prix = c(2.5, 1.8, 3.2)
+)
+
+text
+
+## Les essentiels de R Markdown
+
+### Structure du document
+
+Titre 1
+Titre 2
+Titre 3
+
+    Gras et italique
+
+    code en ligne
+
+text
+summary(mtcars$mpg)
+
+Rapports dynamiques
+
+text
+Il y a `r nrow(mtcars)` voitures dans le jeu de données
+
+| Caractéristique | Description       |
+|-----------------|-------------------|
+| Cylindres      | Nombre de cylindres |
+| MPG            | Miles par gallon  |
+
+Flux de travail d'analyse de données
+R de base vs Tidyverse
+
+Sous-ensembles de données :
+
+text
+# R de base
+sous_ensemble_base <- df_base[df_base$prix > 2, ]
+
+# Tidyverse
+library(dplyr)
+sous_ensemble_tidy <- df_base %>% 
+  filter(prix > 2)
+
+Visualisation de données :
+
+text
+# R de base
+plot(df_base$fruit, df_base$prix)
+
+# ggplot2
+library(ggplot2)
+ggplot(df_base, aes(fruit, prix)) + 
+  geom_col()
+
+Analyse textuelle pour linguistes
+Méthodes quantitatives
+
+text
+library(tidytext)
+
+donnees_texte <- tibble(
+  texte = c("Le langage est fascinant", "La linguistique révèle des motifs")
+)
+
+# Tokenisation
+tokenise <- donnees_texte %>%
+  unnest_tokens(mot, texte)
+
+# Analyse de sentiments
+library(textdata)
+tokenise %>%
+  inner_join(get_sentiments("afinn"))
+
+Intégration de LLM avec tidychatmodels
+Configuration et utilisation basique
+
+text
+# Installer ollama d'abord : https://ollama.ai/
+install.packages("tidychatmodels")
+library(tidychatmodels)
+
+# Initialiser le modèle
+llm_use(
+  provider = "ollama",
+  model = "llama3.2",
+  temperature = 0.7
+)
+
+# Interaction basique
+reponse_chat <- llm_chat("Expliquez la physique quantique simplement")
+
+Applications avancées
+
+text
+# Traitement par lots
+textes_a_analyser <- c("Avis positif", "Expérience négative")
+
+llm_batch(textes_a_analyser, 
+  prompt = "Classez le sentiment : {texte}",
+  params = list(max_tokens = 50)
+)
+
+Transition vers Tidyverse
+Changements de paradigme clés
+
+    Pipes :
+
+text
+# R de base
+sum(sqrt(abs(c(-4, 9, -16))))
+
+# Tidyverse
+c(-4, 9, -16) %>% 
+  abs() %>% 
+  sqrt() %>% 
+  sum()
+
+    Manipulation de données :
+
+text
+# R de base
+aggregate(mpg ~ cyl, data = mtcars, mean)
+
+# Tidyverse
+mtcars %>% 
+  group_by(cyl) %>% 
+  summarize(mpg_moyen = mean(mpg))

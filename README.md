@@ -8,10 +8,26 @@ Place Paul Ricoeur 75013 Paris
 
  
 # Installer R puis RStudio 
+Installer d'abord R (la dernière version en date, R.4.5.0)
+PC  : https://cran.r-project.org/bin/windows/base/
+typiquement, https://cran.r-project.org/bin/windows/base/R-4.5.0-win.exe
+mac : https://cran.r-project.org/bin/macosx/
+typiquement, https://cran.r-project.org/bin/macosx/big-sur-arm64/base/R-4.5.0-arm64.pkg
+
+
+puis RStudio
+https://posit.co/download/rstudio-desktop/
+mac: https://download1.rstudio.org/electron/macos/RStudio-2024.12.1-563.dmg
+PC : https://download1.rstudio.org/electron/windows/RStudio-2024.12.1-563.exe
+
+
+Voir pour un mode d'emploi:
+https://larmarange.github.io/analyse-R/installation-de-R-et-RStudio.html
+ou
+https://quanti.hypotheses.org/1813
 
 
 # le carnet (**pad**) pour communiquer : <https://mypads2.framapad.org/mypads/?/mypads/group/corli-xq5r7i9yh/pad/view/r-faq-b02y3i9zm>
-
 
 
 
@@ -126,6 +142,11 @@ prolongements
 bilan
 -> plan pour le 30 avril
 
+
+# Pourquoi R change la donne?
+<https://hal.science/hal-01346249v1>
+Ballier, N, (2019) R, pour un écosystème du traitement des données ? L’exemple de la linguistique. Paul Caron; Rodolphe Defiolle; Marie-Hélène Lay. L’enjeu des métadonnées dans les corpus textuels. Un défi pour les sciences humaines, Presses universitaires de Rennes, pp.97-118, 2019, Rivages linguistiques. ⟨hal-01346249⟩
+https://hal.science/hal-01346249v1
 
 
 

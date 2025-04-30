@@ -1,0 +1,221 @@
+
+```{r}
+library(tidyverse)
+library(cleanNLP)
+library(stringi)
+```
+
+Armenian Data Set
+
+```{r}
+arm <- read_lines("test_data_Armenian/Bakunts_Stories_1.txt")
+arm <- tibble(text = arm)
+arm
+```
+
+Here we loading into Armenian UDPipe NLP pipeline. We figured out the name of
+the model by looking at the help page here:
+
+   https://cran.r-project.org/web/packages/udpipe/udpipe.pdf
+
+```{r}
+cnlp_init_udpipe("armenian-armtdp")
+```
+
+Now, we use cleanNLP to parse the Armenian text data.
+
+```{r}
+anno <- cnlp_annotate(arm, text_name = "text")$token
+```
+
+```{r}
+anno
+```
+
+```{r}
+anno |>
+  group_by(upos) |>
+  summarize(n =n()) |>
+  arrange(desc(n))
+```
+
+```{r}
+tab_freq <- anno |>
+  group_by(lemma) |>
+  summarize(n =n()) |>
+  arrange(desc(n))
+
+tab_freq
+```
+
+```{r}
+write_csv2(tab_freq, "Bakunts_Stories_1_tab_freq.csv")
+```
+
+```{r}
+write_csv2(anno, "Bakunts_Stories_1.csv")
+```
+
+```{r}
+library(writexl)
+#install.packages("writexl")
+write_xlsx(anno, "Bakunts_Stories_1.xlsx")
+```
+
+This transforms the cleanNLP format to match CONLL into the udpipe format.
+
+```{r}
+anno$deps <- NA_character_
+anno$misc <- NA_character_
+anno$sentence <- NA_character_
+anno_for_conll <- select(anno,
+  doc_id,
+  sentence_id = sid,
+  sentence = sentence,
+  token_id = tid,
+  token,
+  lemma,
+  upos,
+  xpos,
+  feats,
+  head_token_id = tid_source,
+  dep_rel = relation,
+  deps,
+  misc
+)
+```
+
+This writes the output as expected:
+
+```{r}
+library(udpipe)
+
+out <- as_conllu(anno_for_conll)
+cat(stri_sub(out, 1, 1000))
+```
+
+```{r}
+write_lines(out, "armenian_new.conll")
+```
+
+
+```{r}
+library(udpipe)
+m <- udpipe_train(file = "armenian_new.udpipe",
+                  files_conllu_training = "armenian_new.conll", 
+                  annotation_tokenizer = list(dimension = 16, 
+                                              epochs = 1, 
+                                              batch_size = 100, 
+                                              dropout = 0.7),
+                  annotation_tagger = list(iterations = 1, 
+                                           models = 1, 
+                                           provide_xpostag = 1, 
+                                           provide_lemma = 0, 
+                                           provide_feats = 0), 
+                  annotation_parser = "default")
+```
+
+```{r}
+example <- "Ժամանակով մի աղքատ մարդ կար. որքան աշխատում էր, որքան չարչարվում էր, դարձյալ միևնույն աղքատն էր մնում։ Հուսահատված, մի օր նա վեր կացավ, թե` պետք է գնամ գտնեմ աստծուն, տեսնեմ ես երբ պետք է պրծնեմ այս աղքատությունից, ու ինձ համար մի բան խնդրեմ։ Ճանապարհին մի գայլ պատահեց."
+
+udmodel_new <- udpipe_load_model(file = m$file_model)
+x <- udpipe_annotate(udmodel_new, x = example)
+x <- as_tibble(x)
+x
+```
+
+
+```{r}
+cnlp_init_udpipe(model_path = "armenian_new.udpipe")
+anno_new <- cnlp_annotate(arm, text_name = "text")$token
+```
+
+```{r}
+anno
+```
+
+```{r}
+anno_new
+```
+
+```{r}
+anno_new |>
+  anti_join(anno, by = "token")
+```
+
+```{r}
+anno$upos |> table()
+anno_new$upos |> table()
+```
+
+```{r}
+fnames <- dir("test_data_Armenian/")
+
+arm_all <- tibble(
+  doc_id = fnames,
+  text = NA_character_
+)
+for (i in seq_along(fnames)) {
+  temp <- read_lines(file.path("test_data_Armenian/", fnames[i]))
+  arm_all$text[i] <- paste(temp, collapse = "\n")
+}
+arm_all
+```
+```{r}
+cnlp_init_udpipe("armenian-armtdp")
+
+anno <- cnlp_annotate(arm_all, text_name = "text")$token
+```
+
+
+
+
+
+We downloaded the conllu data on the GitHub repository here:
+
+  https://github.com/UniversalDependencies/UD_Thai-TUD/tree/dev
+  
+Then, train the model as we did with the Armenian data.
+
+```{r}
+download.file(
+  url = "https://raw.githubusercontent.com/UniversalDependencies/UD_Thai-TUD/refs/heads/dev/th_tud-ud-dev.conllu",
+  destfile = "th_tud-ud-dev.conllu"
+)
+```
+
+```{r}
+m <- udpipe_train(file = "thai_new.udpipe",
+                  files_conllu_training = "th_tud-ud-dev.conllu", 
+                  annotation_tokenizer = "default",
+                  annotation_tagger = "default", 
+                  annotation_parser = "default")
+```
+
+We can test the Thai model on a small example sentence, here.
+
+```{r}
+example <- "ฉันหิวแล้ว"
+udmodel_new <- udpipe_load_model(file = "thai_new.udpipe")
+x <- udpipe_annotate(udmodel_new, x = example)
+x <- as_tibble(x)
+x
+```
+
+
+```{r}
+library(readtextgrid)
+
+tg <- read_textgrid("JSCC03-eiida_AH_SO.TextGrid")
+tg
+```
+
+```{r}
+table(tg$tier_name)
+filter(tg, tier_name == "TokensAlign")
+```
+
+
+
+
+
